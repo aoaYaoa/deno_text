@@ -64,6 +64,7 @@ const config: Config = {
     }
   },
   api: {
+    md5Key: 'E807F1FCF82D132F9BB018CA6738A19F',
     prefix: '/api',
     version: 'v1',
     rateLimit: {
@@ -80,6 +81,14 @@ const config: Config = {
   },
   secret: APP_SECRET || 'fallback-secret-key-please-change',
   jwtExpiresIn: JWT_EXPIRES,
+  whiteList: ['/api/v1/auth/login'],
+  cors: {
+    enabled: true,
+    options: {
+      origin: ALLOWED_ORIGINS,
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    },
+  },
 };
 
 export default config; 

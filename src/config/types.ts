@@ -3,6 +3,7 @@
 
 // 数据库配置类型 (MySQL)
 export interface DbConfig {
+
   hostname: string;
   username: string;
   password: string;
@@ -17,6 +18,7 @@ export interface DbConfig {
 
 // MongoDB 配置类型
 export interface MongoDBConfig {
+  //解码密钥
   uri: string;
   dbName: string;
   options?: {
@@ -44,6 +46,7 @@ export interface ServerConfig {
 // API配置类型
 export interface ApiConfig {
   prefix: string;
+  md5Key: string;
   version: string;
   rateLimit: {
     enabled: boolean;
@@ -60,6 +63,17 @@ export interface LogConfig {
   logFile?: string;
 }
 
+// 跨域配置类型
+export interface CorsConfig {
+  enabled: boolean; //是否启用跨域
+  options?: {
+    origin: string | string[];
+    methods?: string[];
+    headers?: string[];
+    credentials?: boolean;
+    maxAge?: number;
+  };
+}
 // 完整配置类型
 export interface Config {
   env: string;
@@ -71,4 +85,6 @@ export interface Config {
   log: LogConfig;
   secret: string;
   jwtExpiresIn: string;
+  whiteList: string[];
+  cors: CorsConfig; //跨域配置
 } 

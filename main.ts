@@ -1,6 +1,6 @@
 // main.ts - 应用程序入口文件
 
-import { Application } from "oak";
+import { Application, send } from "oak";
 import { getConfig, getEnvironment } from "./src/config/index.ts";
 import routes from "./src/routes/index.ts";
 import { middlewares } from './src/middleware/index.ts';
@@ -47,10 +47,9 @@ async function bootstrap() {
     }
   });
   
-  //注册所有中间件
+  // 注册所有中间件
   for (const middleware of middlewares) {
     app.use(middleware);
-    console.log(`注册中间件: ${middleware.name}`);
   }
   
   // 注册所有路由
@@ -58,6 +57,23 @@ async function bootstrap() {
     app.use(router.routes());
     app.use(router.allowedMethods());
   }
+  
+  // API路由处理
+  app.use(async (ctx) => {
+    // 处理找不到的API路由
+    if (ctx.request.url.pathname.startsWith("/api")) {
+      ctx.response.status = 404;
+      ctx.response.body = { 
+        success: false, 
+        message: "API路由不存在" 
+      };
+      return;
+    }
+    
+    // 对于其他路由返回404
+    ctx.response.status = 404;
+    ctx.response.body = "404 - 页面不存在";
+  });
   
   // 优雅关闭
   app.addEventListener("close", async () => {
@@ -70,6 +86,7 @@ async function bootstrap() {
   
   app.addEventListener("listen", () => {
     console.log(`🚀 服务器运行在 http://${host}:${port} (${env}环境)`);
+    console.log(`  - API: http://${host}:${port}/api/`);
   });
   
   // 启动服务器

@@ -35,6 +35,7 @@ const config: Config = {
     }
   },
   api: {
+    md5Key: 'E807F1FCF82D132F9BB018CA6738A19F',
     prefix: '/api',
     version: 'v1',
     rateLimit: {
@@ -50,6 +51,17 @@ const config: Config = {
   },
   secret: 'dev-secret-key-change-in-production',
   jwtExpiresIn: '1d',
+  whiteList: ['/api/v1/auth/login'],
+  cors: {
+    enabled: true,
+    options: {
+      origin: '*',
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      headers: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization', 's_t', 's_sign'],
+      credentials: true,
+      maxAge: 86400
+    },
+  },
 };
 
 export default config; 
