@@ -1,15 +1,19 @@
 // 路由集合和统一导出
 import { Router } from "oak";
 import authRouter from "./auth.ts";
-
-// 创建一个主路由
-const router = new Router();
+import homeRouter from "./home.ts";
+import cartRouter from "./cart.ts";
+import wechatRouter from "./wechat.ts";
+import mbtiRouter from "./mbti.ts";
 
 // 统一导出所有路由
 export default {
   routes: [
-    router,
     authRouter,
+    homeRouter,
+    cartRouter,
+    wechatRouter,
+    mbtiRouter,
     // 在这里添加更多路由
   ]
 }; 
