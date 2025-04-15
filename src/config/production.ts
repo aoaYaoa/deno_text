@@ -2,7 +2,7 @@
 // 生产环境配置
 
 import { Config } from './types.ts';
-
+import { WHITE_LIST } from './whitelist.ts';
 // 从环境变量获取敏感信息
 const DB_HOST = Deno.env.get('DB_HOST') || '127.0.0.1';
 const DB_USER = Deno.env.get('DB_USER') || 'root';
@@ -81,7 +81,7 @@ const config: Config = {
   },
   secret: APP_SECRET || 'fallback-secret-key-please-change',
   jwtExpiresIn: JWT_EXPIRES,
-  whiteList: ['/api/v1/auth/login'],
+  whiteList:WHITE_LIST ,
   cors: {
     enabled: true,
     options: {

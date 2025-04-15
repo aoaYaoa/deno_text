@@ -19,3 +19,14 @@ export const loginSchema= {
     }, 
     required: ["username", "password"]
 }
+// 用户注册请求
+export interface RegisterRequest {
+    username: string;
+    password: string;
+    email: string;
+}
+export const registerSchema = {
+  username: true,  // 必填
+  password: true,  // 必填
+  email: true      // 必填
+};

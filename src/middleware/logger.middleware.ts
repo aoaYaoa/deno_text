@@ -1,12 +1,13 @@
 // 日志中间件
 import { Context, Next } from "oak";
+import { randomUUID } from "node:crypto";
 
 /**
  * 请求日志记录中间件
  */
 export async function loggerMiddleware(ctx: Context, next: Next) {
   const start = Date.now();
-  const requestId = crypto.randomUUID();
+  const requestId = randomUUID();
   
   // 为每个请求生成唯一ID
   ctx.state.requestId = requestId;

@@ -3,14 +3,17 @@
     "dev": "deno run --watch --allow-net --allow-env --allow-read --allow-write --allow-sys --env-file=.env main.ts",
     "dev:watch": "deno run --watch --allow-net --allow-env --allow-read --allow-write --allow-sys --env-file=.env main.ts",
     "hot-reload": "deno run --watch --allow-all --unstable --env-file=.env main.ts",
-    "start": "deno run --allow-net --allow-env --allow-read --allow-write --allow-sys --env-file=.env main.ts",
+    "start": "deno run --allow-net --allow-env --allow-read --allow-sys --env-file=.env src/main.ts",
     "api": "deno run --allow-net --allow-env --allow-sys src/api.ts",
-    "test": "deno test --allow-net --allow-env --allow-read --allow-sys",
+    "test": "deno test --allow-net --allow-env --allow-read --allow-sys --env-file=.env",
     "test:mongodb": "DENO_ENV=test deno test --allow-net --allow-env --allow-read --allow-sys src/tests/mongodb.test.ts",
     "mongo:connect-test": "deno run --allow-net --allow-env --allow-read --allow-sys --env-file=.env src/tests/mongo-connection-test.ts",
     "mongo:add-users": "deno run --allow-net --allow-env --allow-read --allow-sys --env-file=.env src/scripts/add-user-data.ts",
     "mongo:query-users": "deno run --allow-net --allow-env --allow-read --allow-sys --env-file=.env src/scripts/query-user-data.ts",
     "mongo:list-users": "deno run --allow-net --allow-env --allow-read --allow-sys --env-file=.env src/scripts/list-users.ts",
+    "mongo:generate-foods": "deno run --allow-net --allow-env --allow-read --allow-sys --env-file=.env src/scripts/generate-foods.ts",
+    "mongo:generate-information": "deno run --allow-net --allow-env --allow-read --allow-sys --env-file=.env src/scripts/generate-information.ts",
+    "mongo:update-images": "deno run --allow-net --allow-env --allow-read --allow-sys --env-file=.env src/scripts/update-images.ts",
     "json-schema": "deno run --allow-sys src/examples/json-schema-example.ts",
     "http-client": "deno run --allow-net --allow-sys src/examples/http-client-example.ts",
     "api-service": "deno run --allow-net --allow-env --allow-sys src/examples/api-service-example.ts",
@@ -18,7 +21,8 @@
     "start:test": "DENO_ENV=test deno run --allow-net --allow-env --allow-read --allow-sys --env-file=.env.test main.ts",
     "start:prod": "DENO_ENV=production deno run --allow-net --allow-env --allow-read --allow-sys --env-file=.env.prod main.ts",
     "mongo:view": "deno run --allow-net --allow-env --allow-read --allow-write --allow-sys src/examples/mongodb-interactive-viewer.ts",
-    "mongo:init": "deno run --allow-net --allow-env --allow-read --allow-write --allow-sys src/examples/mongo-init.ts"
+    "mongo:init": "deno run --allow-net --allow-env --allow-read --allow-write --allow-sys src/examples/mongo-init.ts",
+    "mongo:generate-mbti": "deno run --allow-net --allow-env --allow-read --allow-sys --env-file=.env src/scripts/mbti-data-generator.ts"
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@1",
@@ -36,7 +40,21 @@
     "std/": "https://deno.land/std@0.196.0/"
   },
   "watchConfig": {
-    "include": ["src/", "templates/"],
-    "exclude": ["**/node_modules/", "**/.git/"]
+    "include": [
+      "src/",
+      "templates/"
+    ],
+    "exclude": [
+      "**/node_modules/",
+      "**/.git/"
+    ]
+  },
+  "deploy": {
+    "project": "0079d850-c35c-480e-bcf8-a849ee45b442",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [],
+    "entrypoint": "main.ts"
   }
 }

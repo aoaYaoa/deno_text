@@ -26,6 +26,10 @@ export interface MongoDBConfig {
     useUnifiedTopology?: boolean;
     maxPoolSize?: number;
     authSource?: string;
+    ssl?: boolean;
+    tls?: boolean;
+    tlsAllowInvalidCertificates?: boolean;
+    retryWrites?: boolean;
   };
 }
 

@@ -2,17 +2,10 @@
 import { Context, Next } from "oak";
 import { getConfig } from "../config/index.ts";
 const config = await getConfig();
-const whiteList: string[] = config.api?.whiteList || [
-  "/api/auth/login",
-  "/api/auth/register",
-  "/api/login",
-  "/api/register",
-  "/login",
-  "/register"
-];
+const whiteList: string[]  = config.whiteList;
 
 // 记录白名单
-console.log("[Auth中间件] 白名单路径:", whiteList);
+
 
 /**
  * 验证用户是否已登录的中间件
@@ -32,7 +25,7 @@ export async function authMiddleware(ctx: Context, next: Next) {
   if (whiteList.some((publicPath: string) => 
       path === publicPath || 
       path.endsWith(publicPath))) {
-    console.log(`[Auth中间件] 白名单路径，不需要验证: ${path}`);
+    // console.log(`[Auth中间件] 白名单路径，不需要验证: ${path}`);
     return await next();
   }
   

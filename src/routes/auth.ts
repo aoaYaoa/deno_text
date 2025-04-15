@@ -7,5 +7,5 @@ const authController = new AuthController();
 const authRouter = new Router();
 
 authRouter.post("/api/auth/login", authController.login.bind(authController));
-
+authRouter.post("/api/auth/register", authController.register.bind(authController));
 export default authRouter;

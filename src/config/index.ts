@@ -4,6 +4,7 @@
 // 定义所有支持的环境
 export type Environment = 'development' | 'test' | 'production';
 
+
 // 获取当前环境，默认为开发环境
 export function getEnvironment(): Environment {
   const env = Deno.env.get('DENO_ENV') as Environment;
@@ -24,4 +25,4 @@ export { default } from './development.ts';
 export const ENV = getEnvironment();
 export const IS_DEV = ENV === 'development';
 export const IS_TEST = ENV === 'test';
-export const IS_PROD = ENV === 'production'; 
+export const IS_PROD = ENV === 'production';

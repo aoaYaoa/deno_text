@@ -61,6 +61,7 @@ async function bootstrap() {
   // API路由处理
   app.use(async (ctx) => {
     // 处理找不到的API路由
+    console.log(ctx.request.url.pathname,'ctx.request.url.pathname');
     if (ctx.request.url.pathname.startsWith("/api")) {
       ctx.response.status = 404;
       ctx.response.body = { 

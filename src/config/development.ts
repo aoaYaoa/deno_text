@@ -2,6 +2,7 @@
 // 开发环境配置
 
 import { Config } from './types.ts';
+import { WHITE_LIST } from './whitelist.ts';
 
 const config: Config = {
   env: 'development',
@@ -26,12 +27,17 @@ const config: Config = {
     poolSize: 5,
   },
   mongodb: {
-    uri: 'mongodb://ac-hznwyxh-shard-00-00.tf0eviu.mongodb.net:27017',
+    uri: 'mongodb+srv://ac-hznwyxh.tf0eviu.mongodb.net/?retryWrites=true&w=majority',
     dbName: 'sample_mflix',
     options: {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       maxPoolSize: 10,
+      ssl: true,
+      tls: true,
+      tlsAllowInvalidCertificates: false,
+      retryWrites: true,
+      authSource: 'admin'
     }
   },
   api: {
@@ -51,13 +57,13 @@ const config: Config = {
   },
   secret: 'dev-secret-key-change-in-production',
   jwtExpiresIn: '1d',
-  whiteList: ['/api/v1/auth/login'],
+  whiteList: WHITE_LIST,
   cors: {
     enabled: true,
     options: {
       origin: '*',
       methods: ['GET', 'POST', 'PUT', 'DELETE'],
-      headers: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization', 's_t', 's_sign'],
+      headers: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization', 's_t', 's_sign', 'userid'],
       credentials: true,
       maxAge: 86400
     },
