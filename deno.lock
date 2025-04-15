@@ -17,6 +17,8 @@
     "npm:@types/node@*": "22.12.0",
     "npm:md5@*": "2.3.0",
     "npm:md5@^2.3.0": "2.3.0",
+    "npm:mongodb@*": "6.3.0",
+    "npm:mongodb@6.3.0": "6.3.0",
     "npm:mongoose@8": "8.13.1",
     "npm:path-to-regexp@6.2.1": "6.2.1",
     "npm:react@^18.2.0": "18.3.1",
@@ -180,12 +182,20 @@
         "mongodb-connection-string-url"
       ]
     },
+    "mongodb@6.3.0": {
+      "integrity": "sha512-tt0KuGjGtLUhLoU263+xvQmPHEGTw5LbcNC73EoFRYgSHwZt5tsoJC110hDyO1kjQzpgNrpdcSza9PknWN4LrA==",
+      "dependencies": [
+        "@mongodb-js/saslprep",
+        "bson",
+        "mongodb-connection-string-url"
+      ]
+    },
     "mongoose@8.13.1": {
       "integrity": "sha512-sRqlXI+6jhr9/KicCOjet1VVPONFsOxTrh14tfueX5y3GJ2ihswc5ewUUojuwdSS/5koGXLIPmGivDSApVXflA==",
       "dependencies": [
         "bson",
         "kareem",
-        "mongodb",
+        "mongodb@6.15.0",
         "mpath",
         "mquery",
         "ms",

@@ -3,6 +3,10 @@
 
 import { Logger } from "../utils/logger.ts";
 import mongoose from "mongoose";
+import { MongoClient, Collection, Filter, Document } from "npm:mongodb@6.3.0";
+import { ObjectId } from "npm:mongodb@6.3.0";
+import { Db } from "npm:mongodb@6.3.0";
+import { config } from "../utils/config.ts";
 
 // 日志实例
 const logger = new Logger({ prefix: "MongoDB" });
@@ -21,6 +25,7 @@ export interface MongoDBConfig {
 export class MongoDBService {
   private connection: mongoose.Connection | null = null;
   private config: MongoDBConfig;
+  private db: Db | null = null;
   
   /**
    * 构造函数
@@ -29,7 +34,7 @@ export class MongoDBService {
   constructor(config?: MongoDBConfig) {
     this.config = config || {
       uri: Deno.env.get("MONGODB_URI") || "mongodb://localhost:27017",
-      dbName: Deno.env.get("MONGODB_NAME") || "denoapp",
+      dbName: Deno.env.get("MONGODB_DATABASE") || Deno.env.get("MONGODB_NAME") || "elpis-beta",
       options: {} as mongoose.ConnectOptions
     };
     
@@ -43,6 +48,18 @@ export class MongoDBService {
     if (maxPoolSize && !isNaN(Number(maxPoolSize))) {
       this.config.options.maxPoolSize = Number(maxPoolSize);
     }
+
+    // 设置SSL/TLS相关选项
+    this.config.options = {
+      ...this.config.options,
+      retryWrites: true,
+      connectTimeoutMS: 30000,
+      socketTimeoutMS: 45000,
+      serverSelectionTimeoutMS: 30000
+    };
+
+    // 打印连接配置
+    logger.info(`MongoDB配置: URI=${this.config.uri}, DB=${this.config.dbName}`);
   }
   
   /**
@@ -84,7 +101,19 @@ export class MongoDBService {
   }
   
   /**
-   * 关闭MongoDB连接
+   * 获取数据库连接实例
+   * @returns 当前MongoDB数据库连接实例
+   */
+  getDb(): Db | null {
+    if (!this.connection) {
+      logger.warn("尝试获取数据库实例，但数据库未连接");
+      return null;
+    }
+    return this.connection.db || null;
+  }
+  
+  /**
+   * 关闭数据库连接
    */
   async close(): Promise<void> {
     try {

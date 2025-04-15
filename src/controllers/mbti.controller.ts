@@ -81,6 +81,7 @@ export async function getTypeDetails(ctx: Context) {
 export async function getAllTypes(ctx: Context) {
   try {
     const types = await mbtiService.getAllTypes();
+    
     ctx.response.status = 200;
     ctx.response.body = {
       success: true,
